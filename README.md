@@ -1,12 +1,12 @@
-# Gilean
+# Mnemosyne
 
 A repository for knowledge consumption, organization and reporting.
 
 ## The Character
 
-**Gilean** is the god of knowledge and balance in Margaret Weis and Tracy Hickman's Dragonlance. He is one of the gods of neutrality, and his symbol is the Book. He is called the Gray Pilgrim, and he keeps the balance between good and evil rather than taking a side.
+**Mnemosyne** is the Titaness of memory in Greek myth. She is the daughter of Gaia and Uranus, and she bore the nine Muses to Zeus after nine nights together. Her name means "remembrance," and she stands for the memory that holds knowledge and makes the arts and sciences possible. In some traditions she presides over a pool in the underworld, where those who drink from it keep their memory.
 
-In the Chronicles and the Legends his influence is seen in **Astinus of Palanthas**, the historian who records every event in the Great Library without judgment or interference. That is the model for this repository: take in everything, keep it in order, and report it faithfully.
+She is the source that the Muses draw on, so nothing the Muses inspire (history, poetry, astronomy and the rest) exists without her. That is the model for this repository: remember everything faithfully, keep it in order, and give it back when it is asked for.
 
 ## Purpose
 
