@@ -78,3 +78,7 @@ Append-only. Heading format: `## [YYYY-MM-DD] op | Title`.
 
 ## [2026-10-11] schema | Renamed template from astinus to hesiod
 - Directory renamed `astinus/` to `hesiod/`; updated references in solinari's `README.md` and `CLAUDE.md` and in the `sqlite-fts5` agent description. Earlier log entries keep the old name as history.
+
+## [2026-10-11] schema | Installed in mnemosyne
+- Owner: `researcher` (`.claude/agents/researcher.md`).
+- Changes outside the wiki: copied the `wiki` skill, `wiki-fence.py` (version 2026-10-10) and an empty `registry.yaml` into the host's `.claude/`; registered the wiki in the registry; added `Bash` to the researcher's tools and the owner line to its definition; added a `bash-guard` mode to `scripts/research_check.py` and registered it on `PreToolUse` for `Bash` in `.claude/settings.json`, so the researcher may run only `wiki.py`. The host has no formatters or linters, so no exclusions or ignore-file edits were needed. The existing `SubagentStop` and `PreToolUse` (`Write|Edit`) hooks are unchanged. `WIKI.md` was filled in from a purpose the human approved; unresolved items are marked provisional.

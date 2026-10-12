@@ -7,6 +7,10 @@
           linking the log to that copy in _logs/research/.
   guard   PreToolUse for Write and Edit: the researcher may not write outside
           the repository.
+  bash-guard
+          PreToolUse for Bash: the researcher may run only the wiki's own tool,
+          `python3 brains/research-brain/tools/wiki.py <subcommand> ...`, with
+          no shell syntax and no path outside the wiki.
 
 Both read the hook JSON on stdin. No network, no model calls.
 """
@@ -17,12 +21,14 @@ import hashlib
 import json
 import os
 import re
+import shlex
 import shutil
 import sys
 from pathlib import Path
 
 AGENT = "researcher"
-RAW_REL = Path("brains/research-brain/raw")
+WIKI_REL = Path("brains/research-brain")
+RAW_REL = WIKI_REL / "raw"
 LOG_REL = Path("_logs/research")
 REQUIRED_SECTIONS = ("Findings", "Conflicts", "Appendix A", "Appendix B")
 EVIDENCE_TOOL_PREFIXES = ("WebSearch", "WebFetch", "mcp__")
@@ -260,21 +266,61 @@ def guard_decision(payload, root):
     return "The researcher may write only inside the repository (%s); %s is outside it." % (base, target)
 
 
+# --- bash-guard hook ---------------------------------------------------------
+
+WIKI_SUBCOMMANDS = {"search", "lint", "new", "backlinks", "status", "captured",
+                    "provenance", "log", "eval", "digest", "reindex", "doctor"}
+SHELL_SYNTAX = re.compile(r"[;&|<>$`\\\n\r(){}*?\[\]~!]")
+
+
+def inside(path, base):
+    return path == base or base in path.parents
+
+
+def bash_decision(payload, root):
+    """Return a deny reason unless the researcher runs only the wiki tool, as one plain command."""
+    if payload.get("agent_type") != AGENT or payload.get("tool_name") != "Bash":
+        return None
+    cmd = (payload.get("tool_input") or {}).get("command", "")
+    wiki = (Path(root) / WIKI_REL).resolve()
+    tool = wiki / "tools" / "wiki.py"
+    usage = "The researcher may run only: python3 %s <subcommand> ..." % tool.relative_to(Path(root).resolve())
+    if SHELL_SYNTAX.search(cmd):
+        return "%s Shell syntax (; & | < > $ ` \\ ( ) { } * ? [ ] ~ ! or a newline) is not allowed." % usage
+    try:
+        argv = shlex.split(cmd)
+    except ValueError:
+        return "%s The command has unbalanced quotes." % usage
+    cwd = Path(payload.get("cwd") or root)
+    if len(argv) < 3 or argv[0] != "python3" or (cwd / argv[1]).resolve() != tool:
+        return usage
+    if argv[2] not in WIKI_SUBCOMMANDS:
+        return "%s Unknown subcommand '%s'." % (usage, argv[2])
+    if "--accept-raw" in argv[3:]:
+        return "--accept-raw re-baselines write-once raw files and needs the human's agreement."
+    for arg in argv[3:]:
+        if arg.startswith("-") or "/" not in arg or re.match(r"[a-z][a-z0-9+.-]*://", arg, re.I):
+            continue
+        if not (inside((cwd / arg).resolve(), wiki) or inside((wiki / arg).resolve(), wiki)):
+            return "The path '%s' is outside %s." % (arg, wiki)
+    return None
+
+
 def project_root():
     env = os.environ.get("CLAUDE_PROJECT_DIR")
     return Path(env) if env else Path(__file__).resolve().parent.parent
 
 
 def main(argv):
-    if len(argv) != 2 or argv[1] not in ("stop", "guard"):
-        sys.exit("usage: research_check.py stop|guard")
+    if len(argv) != 2 or argv[1] not in ("stop", "guard", "bash-guard"):
+        sys.exit("usage: research_check.py stop|guard|bash-guard")
     payload = json.load(sys.stdin)
     if argv[1] == "stop":
         reason = run_stop(payload, project_root())
         if reason:
             print(json.dumps({"decision": "block", "reason": reason}))
     else:
-        reason = guard_decision(payload, project_root())
+        reason = (bash_decision if argv[1] == "bash-guard" else guard_decision)(payload, project_root())
         if reason:
             print(json.dumps({"hookSpecificOutput": {
                 "hookEventName": "PreToolUse",

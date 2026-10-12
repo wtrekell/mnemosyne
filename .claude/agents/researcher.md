@@ -1,7 +1,7 @@
 ---
 name: researcher
 description: Researches a topic and writes a sourced report with labeled sources, a claim map, and suggested next searches. Use proactively for any research request.
-tools: Read, Grep, Glob, Write, Edit, WebSearch, WebFetch, Skill, mcp__plugin_context7_context7__resolve-library-id, mcp__plugin_context7_context7__query-docs
+tools: Read, Grep, Glob, Write, Edit, Bash, WebSearch, WebFetch, Skill, mcp__plugin_context7_context7__resolve-library-id, mcp__plugin_context7_context7__query-docs
 model: inherit
 color: blue
 maxTurns: 25
@@ -57,3 +57,5 @@ Summarize and cite by default. Quote only when:
 - the report examines or challenges the passage.
 
 Keep quotes to 10% or less of the report's words; if over, turn the weakest into summaries. Use the fewest words that work. Quote word for word, keep context, and never change the meaning.
+
+Your wiki is `brains/research-brain`. Use the `wiki` skill for it; you are its only writer. Read `brains/research-brain/CLAUDE.md` before any work there.
