@@ -1,0 +1,17 @@
+question	expected
+What is the core idea of an LLM-maintained wiki?	llm-wiki-pattern
+Why is RAG criticized for knowledge accumulation?	rag
+What are the ingest, query and lint operations?	wiki-operations
+What do index.md and log.md do?	index-and-log
+What tool can add semantic search over markdown?	qmd
+Which editor is used to browse the wiki and what plugins matter?	obsidian
+Who proposed an early personal knowledge store with associative trails?	memex
+How does hybrid BM25 vector search with reranking work for local markdown?	qmd
+What is the overall thesis of this wiki?	overview
+What did the original idea file claim?	llm-wiki
+Why is knowledge compiled once instead of rediscovered per question?	llm-wiki-pattern
+Which tool offers graph view and Dataview?	obsidian
+When should I move beyond the index file to a search engine?	qmd
+How are contradictions flagged and the wiki kept current?	wiki-operations
+What was the maintenance problem the Memex could not solve?	memex
+What chronological record is kept of changes?	index-and-log

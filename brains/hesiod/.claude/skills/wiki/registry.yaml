@@ -1,0 +1,16 @@
+# Wiki registry: which agent owns which wiki. Human-edited only; the fence hook
+# (.claude/hooks/wiki-fence.py) blocks every agent from changing this file.
+#
+# One entry per wiki. `agent` is the agent's `name:` from .claude/agents/<name>.md.
+# `path` is the wiki directory, relative to the host repository root (the directory
+# that contains .claude/). Each agent owns at most one wiki; each wiki has one owner.
+#
+# Format is a flat subset of YAML: exactly the shape below, no anchors or flow lists.
+#
+# wikis:
+#   - agent: research-agent
+#     path: docs/research-wiki
+#   - agent: ops-agent
+#     path: docs/ops-wiki
+
+wikis:
