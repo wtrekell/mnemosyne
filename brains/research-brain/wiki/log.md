@@ -82,3 +82,10 @@ Append-only. Heading format: `## [YYYY-MM-DD] op | Title`.
 ## [2026-10-11] schema | Installed in mnemosyne
 - Owner: `researcher` (`.claude/agents/researcher.md`).
 - Changes outside the wiki: copied the `wiki` skill, `wiki-fence.py` (version 2026-10-10) and an empty `registry.yaml` into the host's `.claude/`; registered the wiki in the registry; added `Bash` to the researcher's tools and the owner line to its definition; added a `bash-guard` mode to `scripts/research_check.py` and registered it on `PreToolUse` for `Bash` in `.claude/settings.json`, so the researcher may run only `wiki.py`. The host has no formatters or linters, so no exclusions or ignore-file edits were needed. The existing `SubagentStop` and `PreToolUse` (`Write|Edit`) hooks are unchanged. `WIKI.md` was filled in from a purpose the human approved; unresolved items are marked provisional.
+
+## [2026-10-13] ingest | UX portfolio hiring and information architecture raw files (12 sources)
+- Sources: [[ux-portfolio-design-managers-2026-03-to-10]], [[ux-portfolio-early-2026]], [[ux-portfolio-research-orgs-2026-03-to-10]], [[ux-portfolio-tech-recruiters-2026-03-to-10]], [[ux-portfolio-reviewers-reddit-synthesis]], [[nielsen-ai-competence-commodity]], [[kul-getting-hired-as-a-designer-in-2026]], [[wheatley-hiring-in-the-age-of-ai-in-design]], [[krutchinsky-is-my-portfolio-holding-me-back]], [[krutchinsky-layoff-prep-and-nda-portfolios]], [[ia-non-human-evidence-processes]], [[ia-role-and-artifact-catalog]].
+- Concepts: [[ux-portfolio-hiring-expectations]], [[ux-job-market-2026]], [[information-architecture]], [[ia-non-human-evidence]], [[ia-artifact-catalog]].
+- Entities: [[tom-scott]], [[lena-kul]], [[marina-krutchinsky]], [[figma]], [[nielsen-norman-group]].
+- Updated [[index]], [[overview]].
+- Flags: none of the 12 raw files carries a `capture_method` stamp (unknown provenance); the Designer Fund report is labeled Reputable in one researcher report and Unconfirmed in another; the Krutchinsky 2025 post is a paywalled teaser; the Reddit synthesis is human-authored and unlabeled.
