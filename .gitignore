@@ -1,25 +1,2 @@
-# macOS
-.DS_Store
-.AppleDouble
-.LSOverride
-._*
-.Spotlight-V100
-.Trashes
-.fseventsd
-.DocumentRevisions-V100
-.TemporaryItems
-.VolumeIcon.icns
-.com.apple.timemachine.donotpresent
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
-Icon?
-
 # Brains
 brains/
-node_modules/
-
-# Vale (run `vale sync` to restore)
-.vale/styles/

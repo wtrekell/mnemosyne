@@ -14,6 +14,14 @@ She is the source that the Muses draw on, so nothing the Muses inspire (history,
 - **Organize:** keep them structured and findable.
 - **Report:** produce summaries that can be trusted.
 
+## Prose linting
+
+Run on demand with the shared Harper wrapper. It covers everything outside `brains/`, except the generated search logs in `_logs/`:
+
+```sh
+harper-lint README.md .claude _templates research resources
+```
+
 ## Status
 
 Just started. Structure and tooling to come.

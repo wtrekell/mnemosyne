@@ -8,6 +8,7 @@ re-baselined with `wiki.py reindex --accept-raw`. The human asked for this re-ba
 import hashlib
 import json
 import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -40,14 +41,14 @@ def main():
         return
 
     wiki_py = [sys.executable, str(wiki / "tools/wiki.py")]
-    prettier = root / "node_modules/.bin/prettier"
+    # Homebrew's Prettier; hooks may run without Homebrew on PATH.
+    prettier = shutil.which("prettier") or "/opt/homebrew/bin/prettier"
     empty_ignore = wiki / ".prettier-ignore-none"  # prettier otherwise skips gitignored brains/
     empty_ignore.write_text("")
     try:
         run(wiki_py + ["reindex"], root)
         before = digests(raw)
-        run([prettier, "--write", "--log-level", "warn", "--config", str(root / ".prettierrc.json"),
-             "--ignore-path", str(empty_ignore), str(raw)], root)
+        run([prettier, "--write", "--log-level", "warn", "--ignore-path", str(empty_ignore), str(raw)], root)
         after = digests(raw)
     finally:
         empty_ignore.unlink(missing_ok=True)
